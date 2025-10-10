@@ -4,23 +4,12 @@ public class Account {
     private String description, vendor, date, time;
     private double amount;
 
-    public Account(String date, String time, String description, String vendor,  double amount) {
-        this.description = description;
-        this.vendor = vendor;
+    public Account(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
+        this.description = description;
+        this.vendor = vendor;
         this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "description='" + description + '\'' +
-                ", vendor='" + vendor + '\'' +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", amount=" + amount +
-                '}';
     }
 
     public String getDescription() {

@@ -2,6 +2,8 @@ package com.pluralsight;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,14 +13,14 @@ public class Main {
 
 
         /**
-         * TO-DO: get displayMenu() to accept the HashMap and loadTransactions()
-         * figure out how to get depositMenu() to accept the HashMap and Scanner
-         * test to see if depositMenu() will add to the transactions.csv
-         * fix the depositMenu() to take in local time and date and pass them into the variables
-         * date and time so the user does not have to input that information
+         * TO-DO:
+         * /figure out how to get depositMenu() to accept the HashMap and Scanner
+         * /test to see if depositMenu() will add to the transactions.csv
+         * /fix the depositMenu() to take in local time and date and pass them into the variables
+         * /date and time so the user does not have to input that information
          * determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
-         * find a way to display that information to the user on the screen
+         * /find a way to display that information to the user on the screen
          *
          *
          * create home screen that allows the user to do the follow:
@@ -31,12 +33,13 @@ public class Main {
 
         while (true) {
             displayMenu();
+            HashMap<String, Account> userAccount = loadTransactions();
             char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
             switch (userInput) {
                 case ('d'):
                     System.out.println("\nLoading Deposit Menu...");
-                    depositMenu(HashMap<String,Account>() userAccount, Scanner keyboard);
+                    depositMenu(userAccount);
                     break;
                 case ('p'):
                     System.out.println("\nLoading Payment Menu...");
@@ -56,18 +59,15 @@ public class Main {
     } // end of main()
 
     public static void displayMenu() {
-        // need to call loadTransactions() here so user data is loaded when user selects menu choice
-        HashMap<String, Account> userAccount = loadTransaction();
         System.out.println("Select a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
         System.out.println("L) Display Ledger");
         System.out.println("X) Close Program");
         System.out.print("Enter your choice here: ");
+    }
 
-    } // end of displayMenu()
-
-    public static  HashMap<String, Account> loadTransactions() {
+    public static HashMap<String, Account> loadTransactions() {
         HashMap<String, Account> userAccount = new HashMap<>();
 
         try {
@@ -93,41 +93,49 @@ public class Main {
         return userAccount;
     } // end of loadTransactions()
 
+    public static String localDate() {
+        LocalDate date = LocalDate.now();
+        String localDate = date.toString();
+        return localDate;
+    }
 
-    // need to enter in HashMap and Scanner into the arguments for this method
-    // need to use bufWriter to append to the file
+    public static String localTime() {
+        LocalTime time = LocalTime.now();
+        String localTime = time.toString();
+        return localTime;
+    }
+
     // need to figure out how to get the date and time properly
     // need to remember how to properly format this updated information to the csv
-    public static void depositMenu(HashMap<String, Account> userAccount, Scanner keyboard) {
+    public static void depositMenu(HashMap<String, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+
         System.out.println("Enter in deposit information.");
-
-        // date should be set to the current date when the deposit is happening
-        System.out.print("Enter the date (YYY-MM-dd)");
-        String date = keyboard.nextLine().trim();
-
-        // time should be set to the current time when the deposit is happening
-        System.out.print("Enter the time (hh-mm-ss)");
-        String time = keyboard.nextLine();
-
         System.out.print("Enter deposit description: ");
         String description = keyboard.nextLine().trim();
 
         System.out.print("Enter vendor: ");
-        String vendor = keyboard.nextLine();
+        String vendor = keyboard.nextLine().trim();
 
         System.out.print("Enter in amount: ");
         double amount = keyboard.nextDouble();
         keyboard.nextLine();
 
-        try {
-            BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-            bufWriter.write(String.format("%s|%s|%s|%s|%.2f", date, time, description, vendor, amount));
-            bufWriter.newLine();
-            bufWriter.close();
+        for (Account depositInfo : userAccount.values()) {
+            userAccount.put(localDate(), new Account(localDate(), localTime, depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
+            try {
+                BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f\n", localDate(), localTime, description, vendor, amount));
+                bufWriter.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            break;
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("\nYou have made a deposit with the following details to your account:");
+        System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n\n", description, vendor, amount);
+
     } // end of depositMenu()
 
 }
