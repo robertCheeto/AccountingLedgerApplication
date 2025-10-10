@@ -14,9 +14,6 @@ public class Main {
 
         /**
          * TO-DO:
-         * /figure out how to get depositMenu() to accept the HashMap and Scanner
-         * /test to see if depositMenu() will add to the transactions.csv
-         * /fix the depositMenu() to take in local time and date and pass them into the variables
          * /date and time so the user does not have to input that information
          * determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
@@ -106,8 +103,6 @@ public class Main {
         return localTime;
     }
 
-    // need to figure out how to get the date and time properly
-    // need to remember how to properly format this updated information to the csv
     public static void depositMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
@@ -136,6 +131,14 @@ public class Main {
         }
         System.out.println("\nYou have made a deposit with the following details to your account:");
         System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n\n", description, vendor, amount);
-    } // end of depositMenu()
+    }
+
+    // ask the user for debit information
+    // subtract from the total balance
+    // create a new line in their transaction with debit info
+    public static void makePayment(HashMap<String, Account> userAccount) {
+        System.out.println("Enter the information below:");
+
+    } // end of makePayment()
 
 }
