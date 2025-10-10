@@ -12,14 +12,39 @@ public class Main {
          * L) ledger (display ledger screen) | X) exit program
          * all these options must save to a CSV except exit program
          */
-        displayMenu();
-        char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
+
+        System.out.println("*****\tWelcome to Big Banks\t*****\n");
+
+        while (true) {
+            displayMenu();
+            char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
+
+            switch (userInput) {
+                case ('d'):
+                    System.out.println("\nLoading Deposit Menu...");
+                    break;
+                case ('p'):
+                    System.out.println("\nLoading Payment Menu...");
+                    break;
+                case ('l'):
+                    System.out.println("\nLoading Ledger Menu...");
+                    break;
+                case ('x'):
+                    System.out.println("\nClosing program...");
+                    keyboard.close();
+                    System.exit(0);
+                default:
+                    System.out.println("\nPlease enter a valid input.\n");
+                    break;
+
+            }
+
+        } // end of while loop
 
 
     } // end of main()
 
     public static void displayMenu() {
-        System.out.println("*****\tWelcome to Big Banks\t*****\n");
         System.out.println("Select a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
