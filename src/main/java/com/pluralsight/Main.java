@@ -1,8 +1,7 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -88,15 +87,36 @@ public class Main {
     // need to use bufWriter to append to the file
     // need to figure out how to get the date and time properly
     // need to remember how to properly format this updated information to the csv
-    public static void depositMenu() {
+    public static void depositMenu(HashMap<String, Account> userAccount, Scanner keyboard) {
         System.out.println("Enter in deposit information.");
+
+        // date should be set to the current date when the deposit is happening
         System.out.print("Enter the date (YYY-MM-dd)");
+        String date = keyboard.nextLine().trim();
+
+        // time should be set to the current time when the deposit is happening
+        System.out.print("Enter the time (hh-mm-ss)");
+        String time = keyboard.nextLine();
+
         System.out.print("Enter deposit description: ");
+        String description = keyboard.nextLine().trim();
+
         System.out.print("Enter vendor: ");
+        String vendor = keyboard.nextLine();
+
         System.out.print("Enter in amount: ");
+        double amount = keyboard.nextDouble();
+        keyboard.nextLine();
 
-
-
+        try {
+            BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
+            bufWriter.write(String.format("%s|%s|%s|%s|%.2f", date, time, description, vendor, amount));
+            bufWriter.newLine();
+            bufWriter.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     } // end of depositMenu()
 
 }
