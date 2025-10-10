@@ -4,7 +4,7 @@ public class Account {
     private String description, vendor, date, time;
     private double amount;
 
-    public Account(String description, String vendor, String date, String time, double amount) {
+    public Account(String date, String time, String description, String vendor,  double amount) {
         this.description = description;
         this.vendor = vendor;
         this.date = date;
