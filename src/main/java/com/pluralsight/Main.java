@@ -83,7 +83,18 @@ public class Main {
         return userAccount;
     } // end of loadTransactions()
 
+
+    // need to enter in HashMap and Scanner into the arguments for this method
+    // need to use bufWriter to append to the file
+    // need to figure out how to get the date and time properly
+    // need to remember how to properly format this updated information to the csv
     public static void depositMenu() {
+        System.out.println("Enter in deposit information.");
+        System.out.print("Enter the date (YYY-MM-dd)");
+        System.out.print("Enter deposit description: ");
+        System.out.print("Enter vendor: ");
+        System.out.print("Enter in amount: ");
+
 
 
     } // end of depositMenu()
