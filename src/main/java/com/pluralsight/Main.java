@@ -14,15 +14,15 @@ public class Main {
 
         /**
          * TO-DO:
-         * determine way to sort the transactions.csv in reverse chronological order
+         * /determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
+         * /work on adding different menus for the ledger and displaying them
+         * /need to find way to tag transactions as deposits/payments
+         * /need to generate the various reports for the ledger
+         * also need to add a way for the user to input what ledger they want to see
+         * after they select the report option
          *
-         *
-         * create home screen that allows the user to do the follow:
-         * D) add deposit (prompt user for depo info) | P) make a payment (prompt user for the debit info)
-         * L) ledger (display ledger screen) | X) exit program
-         * all these options must save to a CSV except exit program
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
@@ -179,6 +179,8 @@ public class Main {
         ledgerMenu(userAccount);
     } // end of ledgerMenu()
 
+    // need to determine if this is how I want to do this method or move the below to main, etc.
+    //
     public static void ledgerMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
