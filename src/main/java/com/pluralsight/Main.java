@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -41,7 +42,7 @@ public class Main {
     } // end of main()
 
     public static void displayMenu() {
-        // need to call loadAccount() here so user data is loaded when user selects menu choice
+        // need to call loadTransactions() here so user data is loaded when user selects menu choice
         System.out.println("Select a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
@@ -51,9 +52,9 @@ public class Main {
 
     } // end of displayMenu()
 
-    public static void loadAccount() {
-
-    } // end of loadAccount()
+    public static void loadTransactions() {
+        //HashMap<>
+    } // end of loadTransactions()
 
     public static void depositMenu() {
 
