@@ -14,7 +14,6 @@ public class Main {
 
         /**
          * TO-DO:
-         * /date and time so the user does not have to input that information
          * determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
@@ -40,10 +39,11 @@ public class Main {
                     break;
                 case ('p'):
                     System.out.println("\nLoading Payment Menu...\n");
-                    makePayment(userAccount);
+                    paymentMenu(userAccount);
                     break;
                 case ('l'):
                     System.out.println("\nLoading Ledger Menu...\n");
+                    displayLedgerMenu(userAccount);
                     break;
                 case ('x'):
                     System.out.println("\nClosing program...\n");
@@ -137,7 +137,7 @@ public class Main {
     // ask the user for debit information
     // subtract from the total balance
     // create a new line in their transaction with debit info
-    public static void makePayment(HashMap<String, Account> userAccount) {
+    public static void paymentMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Enter the information below:");
@@ -166,7 +166,42 @@ public class Main {
         System.out.println("\n*****\nYou have made a payment with the following details to your account:");
         System.out.printf("Payment Details: \"%s\" | Vendor: \"%s\" | Amount: $-%.2f\n", description, vendor, amount);
         System.out.printf("Total Account Balance: $%.2f\n*****\n", amount);
+    }
 
-    } // end of makePayment()
+    public static void displayLedgerMenu(HashMap<String, Account> userAccount) {
+        System.out.println("Please select a ledger option: ");
+        System.out.println("A) Add Entries");
+        System.out.println("D) Show Deposits");
+        System.out.println("P) Show Payments");
+        System.out.println("R) Reports");
+        System.out.println("H) Home");
+        System.out.print("Enter your choice here: ");
+        ledgerMenu(userAccount);
+    } // end of ledgerMenu()
+
+    public static void ledgerMenu(HashMap<String, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+        char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
+
+        switch (userInput) {
+            case ('a'):
+                System.out.println("Loading entries...");
+                break;
+            case ('d'):
+                System.out.println("Loading deposits...");
+                break;
+            case ('p'):
+                System.out.println("Loading payments...");
+                break;
+            case ('r'):
+                System.out.println("Loading reports...");
+            case ('h'):
+                System.out.println("Returning Home...");
+                break;
+            default:
+                System.out.println("Please enter a valid entry.");
+                break;
+        }
+    }
 
 }
