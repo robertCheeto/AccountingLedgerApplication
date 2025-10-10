@@ -26,6 +26,7 @@ public class Main {
             switch (userInput) {
                 case ('d'):
                     System.out.println("\nLoading Deposit Menu...");
+                    depositMenu(HashMap<String,Account>() userAccount, Scanner keyboard);
                     break;
                 case ('p'):
                     System.out.println("\nLoading Payment Menu...");
@@ -46,7 +47,7 @@ public class Main {
 
     public static void displayMenu() {
         // need to call loadTransactions() here so user data is loaded when user selects menu choice
-        //HashMap<String, Account> userAccount = loadTransaction();
+        HashMap<String, Account> userAccount = loadTransaction();
         System.out.println("Select a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
