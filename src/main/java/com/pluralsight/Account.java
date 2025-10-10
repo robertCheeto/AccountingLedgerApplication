@@ -12,6 +12,17 @@ public class Account {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "description='" + description + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
+
     public String getDescription() {
         return description;
     }
