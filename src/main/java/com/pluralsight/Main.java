@@ -11,6 +11,16 @@ public class Main {
 
 
         /**
+         * TO-DO: get displayMenu() to accept the HashMap and loadTransactions()
+         * figure out how to get depositMenu() to accept the HashMap and Scanner
+         * test to see if depositMenu() will add to the transactions.csv
+         * fix the depositMenu() to take in local time and date and pass them into the variables
+         * date and time so the user does not have to input that information
+         * determine way to sort the transactions.csv in reverse chronological order
+         * (most recent transactions at the top and oldest at the bottom)
+         * find a way to display that information to the user on the screen
+         *
+         *
          * create home screen that allows the user to do the follow:
          * D) add deposit (prompt user for depo info) | P) make a payment (prompt user for the debit info)
          * L) ledger (display ledger screen) | X) exit program
