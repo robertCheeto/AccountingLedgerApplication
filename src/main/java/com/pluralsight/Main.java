@@ -100,8 +100,9 @@ public class Main {
     }
 
     public static String localTime() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime time = LocalTime.now();
-        String localTime = time.toString();
+        String localTime = time.format(format);
         return localTime;
     }
 
@@ -122,10 +123,10 @@ public class Main {
         keyboard.nextLine();
 
         for (Account depositInfo : userAccount.values()) {
-            userAccount.put(localDate(), new Account(localDate(), localTime, depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
+            userAccount.put(localDate(), new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|%.2f\n", localDate(), localTime, description, vendor, amount));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f\n", localDate(), localTime(), description, vendor, amount));
                 bufWriter.close();
             }
             catch (IOException e) {
@@ -135,7 +136,6 @@ public class Main {
         }
         System.out.println("\nYou have made a deposit with the following details to your account:");
         System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n\n", description, vendor, amount);
-
     } // end of depositMenu()
 
 }
