@@ -36,15 +36,12 @@ public class Main {
                 default:
                     System.out.println("\nPlease enter a valid input.\n");
                     break;
-
             }
-
-        } // end of while loop
-
-
+        }
     } // end of main()
 
     public static void displayMenu() {
+        // need to call loadAccount() here so user data is loaded when user selects menu choice
         System.out.println("Select a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
@@ -53,5 +50,14 @@ public class Main {
         System.out.print("Enter your choice here: ");
 
     } // end of displayMenu()
+
+    public static void loadAccount() {
+
+    } // end of loadAccount()
+
+    public static void depositMenu() {
+
+
+    } // end of depositMenu()
 
 }
