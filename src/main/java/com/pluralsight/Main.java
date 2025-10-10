@@ -26,7 +26,7 @@ public class Main {
          * all these options must save to a CSV except exit program
          */
 
-        System.out.println("*****\tWelcome to Big Banks\t*****\n");
+        System.out.println("*****\tWelcome to Big Banks\t*****");
 
         while (true) {
             displayMenu();
@@ -35,28 +35,29 @@ public class Main {
 
             switch (userInput) {
                 case ('d'):
-                    System.out.println("\nLoading Deposit Menu...");
+                    System.out.println("\nLoading Deposit Menu...\n");
                     depositMenu(userAccount);
                     break;
                 case ('p'):
-                    System.out.println("\nLoading Payment Menu...");
+                    System.out.println("\nLoading Payment Menu...\n");
+                    makePayment(userAccount);
                     break;
                 case ('l'):
-                    System.out.println("\nLoading Ledger Menu...");
+                    System.out.println("\nLoading Ledger Menu...\n");
                     break;
                 case ('x'):
-                    System.out.println("\nClosing program...");
+                    System.out.println("\nClosing program...\n");
                     keyboard.close();
                     System.exit(0);
                 default:
-                    System.out.println("\nPlease enter a valid input.\n");
+                    System.out.println("\n*****\nPlease enter a valid input.\n*****");
                     break;
             }
         }
     } // end of main()
 
     public static void displayMenu() {
-        System.out.println("Select a Menu based on the Letter\n");
+        System.out.println("\nSelect a Menu based on the Letter\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
         System.out.println("L) Display Ledger");
@@ -129,15 +130,42 @@ public class Main {
             }
             break;
         }
-        System.out.println("\nYou have made a deposit with the following details to your account:");
-        System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n\n", description, vendor, amount);
+        System.out.println("\n*****\nYou have made a deposit with the following details to your account:");
+        System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n*****\n", description, vendor, amount);
     }
 
     // ask the user for debit information
     // subtract from the total balance
     // create a new line in their transaction with debit info
     public static void makePayment(HashMap<String, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+
         System.out.println("Enter the information below:");
+        System.out.print("Enter payment information: ");
+        String description = keyboard.nextLine().trim();
+
+        System.out.print("Enter who the payment is for: ");
+        String vendor = keyboard.nextLine().trim();
+
+        System.out.print("Enter in amount: ");
+        double amount = keyboard.nextDouble();
+        keyboard.nextLine();
+
+        for (Account depositInfo : userAccount.values()) {
+            userAccount.put(localDate(), new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
+            try {
+                BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
+                bufWriter.write(String.format("%s|%s|%s|%s|-%.2f\n", localDate(), localTime(), description, vendor, amount));
+                bufWriter.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            break;
+        }
+        System.out.println("\n*****\nYou have made a payment with the following details to your account:");
+        System.out.printf("Payment Details: \"%s\" | Vendor: \"%s\" | Amount: $-%.2f\n", description, vendor, amount);
+        System.out.printf("Total Account Balance: $%.2f\n*****\n", amount);
 
     } // end of makePayment()
 
