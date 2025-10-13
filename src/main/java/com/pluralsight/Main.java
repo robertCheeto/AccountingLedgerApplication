@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
-// test comment
+
         /**
          * TO-DO:
          * /determine way to sort the transactions.csv in reverse chronological order
@@ -170,7 +170,7 @@ public class Main {
 
     public static void displayLedgerMenu(HashMap<String, Account> userAccount) {
         System.out.println("Please select a ledger option: ");
-        System.out.println("A) Add Entries");
+        System.out.println("A) Show All Entries");
         System.out.println("D) Show Deposits");
         System.out.println("P) Show Payments");
         System.out.println("R) Reports");
@@ -187,7 +187,8 @@ public class Main {
 
         switch (userInput) {
             case ('a'):
-                System.out.println("Loading entries...");
+                System.out.println("Loading all entries...");
+                displayAllEntries(userAccount);
                 break;
             case ('d'):
                 System.out.println("Loading deposits...");
@@ -204,6 +205,18 @@ public class Main {
                 System.out.println("Please enter a valid entry.");
                 break;
         }
-    }
+    } // end of ledgerMenu()
+
+    public static void displayAllEntries(HashMap<String, Account> userAccount) {
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        for (Account ledgerInfo : userAccount.values()) {
+            System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+            System.out.println();
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+
+    } // end of displayAllEntries()
 
 }
