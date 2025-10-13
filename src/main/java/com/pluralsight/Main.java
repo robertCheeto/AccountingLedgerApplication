@@ -192,9 +192,11 @@ public class Main {
                 break;
             case ('d'):
                 System.out.println("Loading deposits...");
+                displayAllDeposits(userAccount);
                 break;
             case ('p'):
                 System.out.println("Loading payments...");
+                displayAllPayments(userAccount);
                 break;
             case ('r'):
                 System.out.println("Loading reports...");
@@ -218,5 +220,33 @@ public class Main {
         // need to add a "press enter to return home" option
 
     } // end of displayAllEntries()
+
+    public static void displayAllDeposits(HashMap<String, Account> userAccount) {
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getAmount() >= 0.01) {
+                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.println();
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+
+    } // end of displayAllDeposits()
+
+    public static void displayAllPayments(HashMap<String, Account> userAccount) {
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getAmount() <= -0.01) {
+                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.println();
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+
+    } // end of displayAllPayments()
 
 }
