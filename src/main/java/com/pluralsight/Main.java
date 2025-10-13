@@ -17,12 +17,11 @@ public class Main {
          * /determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
-         * /work on adding different menus for the ledger and displaying them
-         * /need to find way to tag transactions as deposits/payments
-         * /need to generate the various reports for the ledger
-         * also need to add a way for the user to input what ledger they want to see
-         * after they select the report option
          *
+         * /began working on displayMTDReport() / need to finish that method and make the other report methods
+         * /those methods are the previous month, YtD, previous year, and search by vendor
+         * /work on finishing the project by adding in "safety nets" and other QOL features
+         * /figure out how to download this updated version of the project to the YU laptop
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
@@ -271,6 +270,7 @@ public class Main {
         switch (userInput) {
             case (1):
                 System.out.println("Loading Month-To-Date Report...");
+                displayMTDReport(userAccount);
                 break;
             case (2):
                 System.out.println("Loading Previous Month Report...");
@@ -291,5 +291,20 @@ public class Main {
                 System.out.println("Please enter a valid number.");
         }
     }
+
+    public static void displayMTDReport(HashMap<String, Account> userAccount) {
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getDate().contains(localDate())) {
+                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.println();
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+
+    } // end of displayAllEntries()
+
 
 }
