@@ -200,12 +200,13 @@ public class Main {
                 break;
             case ('r'):
                 System.out.println("Loading reports...");
+                displayReportsMenu(userAccount);
+                break;
             case ('h'):
                 System.out.println("Returning Home...");
                 break;
             default:
                 System.out.println("Please enter a valid entry.");
-                break;
         }
     } // end of ledgerMenu()
 
@@ -248,5 +249,47 @@ public class Main {
         // need to add a "press enter to return home" option
 
     } // end of displayAllPayments()
+
+    public static void displayReportsMenu(HashMap<String, Account> userAccount) {
+        System.out.println("Please select a report option: ");
+        System.out.println("1) Month-To-Date");
+        System.out.println("2) Previous Month");
+        System.out.println("3) Year-To-Date");
+        System.out.println("4) Previous Year");
+        System.out.println("5) Search By Vendor");
+        System.out.println("0) Back");
+        System.out.print("Enter your choice here: ");
+        reportMenu(userAccount);
+
+    }
+
+
+    public static void reportMenu(HashMap<String, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+        int userInput = keyboard.nextInt();
+
+        switch (userInput) {
+            case (1):
+                System.out.println("Loading Month-To-Date Report...");
+                break;
+            case (2):
+                System.out.println("Loading Previous Month Report...");
+                break;
+            case (3):
+                System.out.println("Loading Year-To-Date Report...");
+                break;
+            case (4):
+                System.out.println("Loading Previous Year Report...");
+                break;
+            case (5):
+                System.out.println("Loading \"Entries by Vendor\" Menu...");
+                break;
+            case (6):
+                System.out.println("Returning Home...");
+                break;
+            default:
+                System.out.println("Please enter a valid number.");
+        }
+    }
 
 }
