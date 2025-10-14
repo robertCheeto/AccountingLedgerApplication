@@ -11,16 +11,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
-
         /**
          * TO-DO:
          * /determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
-         *
-         * /begin working on the final report method, which is the "search by vendor" option
-         * /work on finishing the project by adding in "safety nets" and other QOL features
-         *
          * /fix bug in displayMTDReports() where other transactions that occur on
          * the same date are not displayed for some reason
          */
@@ -89,7 +84,7 @@ public class Main {
             e.printStackTrace();
         }
         return userAccount;
-    } // end of loadTransactions()
+    }
 
     public static String localDate() {
         LocalDate date = LocalDate.now();
@@ -201,7 +196,7 @@ public class Main {
         System.out.println("H) Home");
         System.out.print("Enter your choice here: ");
         ledgerMenu(userAccount);
-    } // end of ledgerMenu()
+    }
 
     public static void ledgerMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
@@ -230,7 +225,7 @@ public class Main {
             default:
                 System.out.println("Please enter a valid entry.");
         }
-    } // end of ledgerMenu()
+    }
 
     public static void displayAllEntries(HashMap<String, Account> userAccount) {
 
@@ -242,7 +237,7 @@ public class Main {
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
 
-    } // end of displayAllEntries()
+    }
 
     public static void displayAllDeposits(HashMap<String, Account> userAccount) {
 
@@ -256,7 +251,7 @@ public class Main {
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
 
-    } // end of displayAllDeposits()
+    }
 
     public static void displayAllPayments(HashMap<String, Account> userAccount) {
 
@@ -270,7 +265,7 @@ public class Main {
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
 
-    } // end of displayAllPayments()
+    }
 
     public static void displayReportsMenu(HashMap<String, Account> userAccount) {
         System.out.println("Please select a report option: ");
@@ -282,7 +277,6 @@ public class Main {
         System.out.println("0) Back");
         System.out.print("Enter your choice here: ");
         reportMenu(userAccount);
-
     }
 
     public static void reportMenu(HashMap<String, Account> userAccount) {
@@ -387,7 +381,6 @@ public class Main {
         }
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
-
     }
 
 
