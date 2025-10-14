@@ -98,29 +98,33 @@ public class Main {
         return localDate;
     }
 
-//    public static HashMap<Integer, Integer> getMonth() {
-//        HashMap<Integer, Integer> currentMonth = new HashMap<>();
-//
-//        try {
-//            BufferedReader bufReader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
-//            String input;
-//            bufReader.readLine();
-//
-//            while ((input = bufReader.readLine()) != null) {
-//                String[] parsedList = input.split("\\|");
-//                String date = parsedList[0];
-//                String[] parsedDates = date.split("-");
-//                int year = Integer.parseInt(parsedDates[0]);
-//                int month = Integer.parseInt(parsedDates[1]);
-//                currentMonth.put(year, month);
-//            }
-//
-//            bufReader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return currentMonth;
-//    }
+    public static String getPreviousMonth() {
+        LocalDate currentDate = LocalDate.now();
+        int currentNumMonth = currentDate.getMonthValue();
+        currentNumMonth = currentNumMonth - 1;
+        String previousMonth = "";
+
+        if (currentNumMonth < 10 && currentNumMonth > 0) {
+            String tempMonth = String.valueOf(currentNumMonth);
+            StringBuilder sb = new StringBuilder(tempMonth);
+            sb.insert(0, "0");
+            previousMonth = sb.toString();
+        }
+        else {
+            previousMonth = Integer.toString(currentNumMonth);
+        }
+        return previousMonth;
+    }
+
+    public static String getPreviousYear() {
+        LocalDate currentYear = LocalDate.now();
+        int currentNumYear = currentYear.getYear();
+        currentNumYear = currentNumYear - 1;
+
+        String previousYear = Integer.toString(currentNumYear);
+
+        return previousYear;
+    }
 
     public static String localTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -306,6 +310,7 @@ public class Main {
                 break;
             case (4):
                 System.out.println("Loading Previous Year Report...");
+                displayPreviousYearReport(userAccount);
                 break;
             case (5):
                 System.out.println("Loading \"Entries by Vendor\" Menu...");
@@ -333,16 +338,13 @@ public class Main {
         // need to add a "press enter to return home" option
     }
 
-    // bug where it cannot retrieve the month of september because it is looking for
-    //"9" instead of "09" like in the date format. need to get a formatter involved
     public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
-        String currentMonth = String.valueOf(currentDate.getMonthValue() - 1);
         String currentYear = String.valueOf(currentDate.getYear());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
 
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().contains(currentYear + "-" + currentMonth)) {
+            if (ledgerInfo.getDate().contains(currentYear + "-" + getPreviousMonth())) {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
@@ -364,7 +366,17 @@ public class Main {
         // need to add a "press enter to return home" option
     }
 
+    public static void displayPreviousYearReport(HashMap<String, Account> userAccount) {
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
 
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getDate().contains(getPreviousYear())) {
+                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+    }
 
 
 } // end of Main class
