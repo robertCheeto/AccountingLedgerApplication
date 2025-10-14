@@ -127,6 +127,12 @@ public class Main {
         return localTime;
     }
 
+    public static void pressEnter() {
+        System.out.print("\nPress enter to continue...");
+        Scanner keyboard = new Scanner(System.in);
+        keyboard.nextLine();
+    }
+
     public static void depositMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
@@ -234,9 +240,7 @@ public class Main {
             System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             System.out.println();
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
-
+        pressEnter();
     }
 
     public static void displayAllDeposits(HashMap<String, Account> userAccount) {
@@ -248,9 +252,7 @@ public class Main {
                 System.out.println();
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
-
+        pressEnter();
     }
 
     public static void displayAllPayments(HashMap<String, Account> userAccount) {
@@ -262,9 +264,7 @@ public class Main {
                 System.out.println();
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
-
+        pressEnter();
     }
 
     public static void displayReportsMenu(HashMap<String, Account> userAccount) {
@@ -323,8 +323,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
+        pressEnter();
     }
 
     public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
@@ -337,8 +336,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
+        pressEnter();
     }
 
     public static void displayYTDReport(HashMap<String, Account> userAccount) {
@@ -351,8 +349,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
+        pressEnter();
     }
 
     public static void displayPreviousYearReport(HashMap<String, Account> userAccount) {
@@ -363,8 +360,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
+        pressEnter();
     }
 
     public static void searchByVendor(HashMap<String, Account> userAccount) {
@@ -379,9 +375,7 @@ public class Main {
                 System.out.println();
             }
         }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
+        pressEnter();
     }
-
 
 } // end of Main class
