@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -179,7 +180,6 @@ public class Main {
     } // end of ledgerMenu()
 
     // need to determine if this is how I want to do this method or move the below to main, etc.
-    //
     public static void ledgerMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
@@ -293,10 +293,11 @@ public class Main {
     }
 
     public static void displayMTDReport(HashMap<String, Account> userAccount) {
-
+        LocalDate currentDate = LocalDate.now();
+        String currentMonth = String.valueOf(currentDate.getMonthValue());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().contains(localDate())) {
+            if (ledgerInfo.getDate().equals(currentMonth)) {
                 System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
                 System.out.println();
             }
@@ -304,7 +305,7 @@ public class Main {
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
 
-    } // end of displayAllEntries()
+    }
 
 
 }
