@@ -16,6 +16,7 @@ public class Main {
          * the same date are not displayed for some reason
          * /fix bug where payments and deposits are out of reverse chronological order
          * in which they happen
+         * /can schedule tutoring with Wally to get overview of code and assistance
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
