@@ -380,12 +380,9 @@ public class Main {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount");
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getVendor().contains(userInput)) {
+            if (ledgerInfo.getVendor().toLowerCase().trim().contains(userInput)) {
                 System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
                 System.out.println();
-            }
-            else {
-                System.out.printf("There are no vendors with the name \"%s\"\n", userInput);
             }
         }
         System.out.println("end of ledger. returning back to ledger menu");
