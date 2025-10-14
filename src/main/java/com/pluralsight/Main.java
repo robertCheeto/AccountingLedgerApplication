@@ -315,13 +315,29 @@ public class Main {
         }
     }
 
-    public static void displayMTDReport(HashMap<String, Account> userAccount) {
+    public static void displayYTDReport(HashMap<String, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
-        String currentMonth = String.valueOf(currentDate.getMonthValue());
+        String currentYear = String.valueOf(currentDate.getYear());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
 
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().contains(currentMonth)) {
+            if (ledgerInfo.getDate().contains(currentYear)) {
+                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.println();
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+    }
+
+    public static void displayMTDReport(HashMap<String, Account> userAccount) {
+        LocalDate currentDate = LocalDate.now();
+        String currentMonth = String.valueOf(currentDate.getMonthValue());
+        String currentYear = String.valueOf(currentDate.getYear());
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getDate().contains(currentYear + "-" + currentMonth)) {
                 System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
                 System.out.println();
             }
