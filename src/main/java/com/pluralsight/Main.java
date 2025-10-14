@@ -11,19 +11,22 @@ public class Main {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
-        /**
-         * TO-DO:
+        /** TO-DO:
          * /determine way to sort the transactions.csv in reverse chronological order
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
          * /fix bug in displayMTDReports() where other transactions that occur on
          * the same date are not displayed for some reason
+         * /fix bug where payments and deposits are out of reverse chronological order
+         * in which they happen
+         * /fix program options for ledger menu for H)ome going back to the main menu
+         * and for 0) back to go back to the reports menu
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
+        displayMenu();
 
         while (true) {
-            displayMenu();
             HashMap<String, Account> userAccount = loadTransactions();
             char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
@@ -46,6 +49,7 @@ public class Main {
                     System.exit(0);
                 default:
                     System.out.println("\n*****\nPlease enter a valid input.\n*****");
+                    displayMenu();
                     break;
             }
         }
@@ -131,6 +135,7 @@ public class Main {
         System.out.print("\nPress enter to continue...");
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
+        System.out.println();
     }
 
     public static void depositMenu(HashMap<String, Account> userAccount) {
@@ -227,9 +232,11 @@ public class Main {
                 break;
             case ('h'):
                 System.out.println("Returning Home...");
+                displayMenu();
                 break;
             default:
                 System.out.println("Please enter a valid entry.");
+                displayLedgerMenu(userAccount);
         }
     }
 
@@ -304,11 +311,13 @@ public class Main {
                 System.out.println("Loading \"Entries by Vendor\" Menu...");
                 searchByVendor(userAccount);
                 break;
-            case (6):
+            case (0):
                 System.out.println("Returning Home...");
+                displayLedgerMenu(userAccount);
                 break;
             default:
                 System.out.println("Please enter a valid number.");
+                displayReportsMenu(userAccount);
         }
     }
 
