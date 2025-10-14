@@ -32,6 +32,7 @@ public class Account {
         return amount;
     }
 
+
     // create getters for other reports in the ledger
     // MtD, Previous 30 days, YtD, Previous Year
 
