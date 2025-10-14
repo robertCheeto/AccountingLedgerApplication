@@ -29,6 +29,7 @@ public class Main {
         while (true) {
             displayMenu();
             HashMap<String, Account> userAccount = loadTransactions();
+            HashMap<String, Reports> userReports = loadReports();
             char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
             switch (userInput) {
@@ -42,7 +43,7 @@ public class Main {
                     break;
                 case ('l'):
                     System.out.println("\nLoading Ledger Menu...\n");
-                    displayLedgerMenu(userAccount);
+                    displayLedgerMenu(userAccount, userReports);
                     break;
                 case ('x'):
                     System.out.println("\nClosing program...\n");
@@ -167,7 +168,7 @@ public class Main {
         System.out.printf("Total Account Balance: $%.2f\n*****\n", amount);
     }
 
-    public static void displayLedgerMenu(HashMap<String, Account> userAccount) {
+    public static void displayLedgerMenu(HashMap<String, Account> userAccount, HashMap<String, Reports> userReports) {
         System.out.println("Please select a ledger option: ");
         System.out.println("A) Show All Entries");
         System.out.println("D) Show Deposits");
@@ -175,12 +176,12 @@ public class Main {
         System.out.println("R) Reports");
         System.out.println("H) Home");
         System.out.print("Enter your choice here: ");
-        ledgerMenu(userAccount);
+        ledgerMenu(userAccount, userReports);
     } // end of ledgerMenu()
 
     // need to determine if this is how I want to do this method or move the below to main, etc.
     //
-    public static void ledgerMenu(HashMap<String, Account> userAccount) {
+    public static void ledgerMenu(HashMap<String, Account> userAccount, HashMap<String, Reports> userReports) {
         Scanner keyboard = new Scanner(System.in);
         char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
@@ -199,7 +200,7 @@ public class Main {
                 break;
             case ('r'):
                 System.out.println("Loading reports...");
-                displayReportsMenu(userAccount);
+                displayReportsMenu(userReports);
                 break;
             case ('h'):
                 System.out.println("Returning Home...");
@@ -249,7 +250,7 @@ public class Main {
 
     } // end of displayAllPayments()
 
-    public static void displayReportsMenu(HashMap<String, Account> userAccount) {
+    public static void displayReportsMenu(HashMap<String, Reports> userReports) {
         System.out.println("Please select a report option: ");
         System.out.println("1) Month-To-Date");
         System.out.println("2) Previous Month");
@@ -258,19 +259,18 @@ public class Main {
         System.out.println("5) Search By Vendor");
         System.out.println("0) Back");
         System.out.print("Enter your choice here: ");
-        reportMenu(userAccount);
+        reportMenu(userReports);
 
     }
 
-
-    public static void reportMenu(HashMap<String, Account> userAccount) {
+    public static void reportMenu(HashMap<String, Reports> userReports) {
         Scanner keyboard = new Scanner(System.in);
         int userInput = keyboard.nextInt();
 
         switch (userInput) {
             case (1):
                 System.out.println("Loading Month-To-Date Report...");
-                displayMTDReport(userAccount);
+                displayMTDReport(userReports);
                 break;
             case (2):
                 System.out.println("Loading Previous Month Report...");
@@ -292,19 +292,44 @@ public class Main {
         }
     }
 
-    public static void displayMTDReport(HashMap<String, Account> userAccount) {
+    public static HashMap<String, Reports> loadReports() {
+        HashMap<String, Reports> userReports = new HashMap<>();
+
+        try {
+            BufferedReader bufReader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
+            String input;
+            bufReader.readLine();
+
+            while ((input = bufReader.readLine()) != null) {
+                String[] parsedList = input.split("\\|");
+                String date = parsedList[0];
+                double amount = Double.parseDouble(parsedList[4]);
+                String[] parsedDates = date.split("-");
+                int years = Integer.parseInt(parsedDates[0]);
+                int months = Integer.parseInt(parsedDates[1]);
+                int days = Integer.parseInt(parsedDates[2]);
+
+                userReports.put(date, new Reports(date, years, months, days, amount));
+            }
+
+            bufReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userReports;
+    } // end of loadReports()
+
+
+    public static void displayMTDReport(HashMap<String, Reports> userReports) {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount");
-        for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().contains(localDate())) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
-                System.out.println();
+        for (Reports dates : userReports.values()) {
+            System.out.println("dates|months|days|year|amount");
+            System.out.printf("%s|%d%|%d|%d|$%.2f", dates.getDays(), dates.getMonths(), dates.getDays(), dates.getYear(), dates.getAmount());
             }
-        }
         System.out.println("end of ledger. returning back to ledger menu");
+    }
         // need to add a "press enter to return home" option
 
-    } // end of displayAllEntries()
+    }
 
-
-}
