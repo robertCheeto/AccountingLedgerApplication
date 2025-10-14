@@ -18,8 +18,7 @@ public class Main {
          * (most recent transactions at the top and oldest at the bottom)
          * /find a way to display that information to the user on the screen
          *
-         * /began working on displayMTDReport() / need to finish that method and make the other report methods
-         * /those methods are the previous month, YtD, previous year, and search by vendor
+         * /begin working on the final report method, which is the "search by vendor" option
          * /work on finishing the project by adding in "safety nets" and other QOL features
          *
          * /fix bug in displayMTDReports() where other transactions that occur on
@@ -55,7 +54,7 @@ public class Main {
                     break;
             }
         }
-    } // end of main()
+    }
 
     public static void displayMenu() {
         System.out.println("\nSelect a Menu based on the Letter\n");
@@ -163,9 +162,6 @@ public class Main {
         System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n*****\n", description, vendor, amount);
     }
 
-    // ask the user for debit information
-    // subtract from the total balance
-    // create a new line in their transaction with debit info
     public static void paymentMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
@@ -194,7 +190,6 @@ public class Main {
         }
         System.out.println("\n*****\nYou have made a payment with the following details to your account:");
         System.out.printf("Payment Details: \"%s\" | Vendor: \"%s\" | Amount: $-%.2f\n", description, vendor, amount);
-        System.out.printf("Total Account Balance: $%.2f\n*****\n", amount);
     }
 
     public static void displayLedgerMenu(HashMap<String, Account> userAccount) {
@@ -208,7 +203,6 @@ public class Main {
         ledgerMenu(userAccount);
     } // end of ledgerMenu()
 
-    // need to determine if this is how I want to do this method or move the below to main, etc.
     public static void ledgerMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
@@ -314,6 +308,7 @@ public class Main {
                 break;
             case (5):
                 System.out.println("Loading \"Entries by Vendor\" Menu...");
+                searchByVendor(userAccount);
                 break;
             case (6):
                 System.out.println("Returning Home...");
@@ -376,6 +371,26 @@ public class Main {
         }
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
+    }
+
+    public static void searchByVendor(HashMap<String, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Please enter a vendor you would like to search for: ");
+        String userInput = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getVendor().contains(userInput)) {
+                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.println();
+            }
+            else {
+                System.out.printf("There are no vendors with the name \"%s\"\n", userInput);
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+
     }
 
 
