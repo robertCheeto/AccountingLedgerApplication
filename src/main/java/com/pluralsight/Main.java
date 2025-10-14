@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -96,6 +95,30 @@ public class Main {
         String localDate = date.toString();
         return localDate;
     }
+
+//    public static HashMap<Integer, Integer> getMonth() {
+//        HashMap<Integer, Integer> currentMonth = new HashMap<>();
+//
+//        try {
+//            BufferedReader bufReader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
+//            String input;
+//            bufReader.readLine();
+//
+//            while ((input = bufReader.readLine()) != null) {
+//                String[] parsedList = input.split("\\|");
+//                String date = parsedList[0];
+//                String[] parsedDates = date.split("-");
+//                int year = Integer.parseInt(parsedDates[0]);
+//                int month = Integer.parseInt(parsedDates[1]);
+//                currentMonth.put(year, month);
+//            }
+//
+//            bufReader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return currentMonth;
+//    }
 
     public static String localTime() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -296,16 +319,16 @@ public class Main {
         LocalDate currentDate = LocalDate.now();
         String currentMonth = String.valueOf(currentDate.getMonthValue());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
+
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().equals(currentMonth)) {
+            if (ledgerInfo.getDate().contains(currentMonth)) {
                 System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
                 System.out.println();
             }
         }
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
-
     }
 
 
-}
+} // end of Main class
