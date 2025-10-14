@@ -12,15 +12,10 @@ public class Main {
         Scanner keyboard = new Scanner(System.in);
 
         /** TO-DO:
-         * /determine way to sort the transactions.csv in reverse chronological order
-         * (most recent transactions at the top and oldest at the bottom)
-         * /find a way to display that information to the user on the screen
          * /fix bug in displayMTDReports() where other transactions that occur on
          * the same date are not displayed for some reason
          * /fix bug where payments and deposits are out of reverse chronological order
          * in which they happen
-         * /fix program options for ledger menu for H)ome going back to the main menu
-         * and for 0) back to go back to the reports menu
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
@@ -129,13 +124,6 @@ public class Main {
         LocalTime time = LocalTime.now();
         String localTime = time.format(format);
         return localTime;
-    }
-
-    public static void pressEnter() {
-        System.out.print("\nPress enter to continue...");
-        Scanner keyboard = new Scanner(System.in);
-        keyboard.nextLine();
-        System.out.println();
     }
 
     public static void depositMenu(HashMap<String, Account> userAccount) {
@@ -247,7 +235,6 @@ public class Main {
             System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             System.out.println();
         }
-        pressEnter();
     }
 
     public static void displayAllDeposits(HashMap<String, Account> userAccount) {
@@ -259,7 +246,6 @@ public class Main {
                 System.out.println();
             }
         }
-        pressEnter();
     }
 
     public static void displayAllPayments(HashMap<String, Account> userAccount) {
@@ -271,7 +257,6 @@ public class Main {
                 System.out.println();
             }
         }
-        pressEnter();
     }
 
     public static void displayReportsMenu(HashMap<String, Account> userAccount) {
@@ -332,7 +317,6 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        pressEnter();
     }
 
     public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
@@ -345,7 +329,6 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        pressEnter();
     }
 
     public static void displayYTDReport(HashMap<String, Account> userAccount) {
@@ -358,7 +341,6 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        pressEnter();
     }
 
     public static void displayPreviousYearReport(HashMap<String, Account> userAccount) {
@@ -369,7 +351,6 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
-        pressEnter();
     }
 
     public static void searchByVendor(HashMap<String, Account> userAccount) {
@@ -384,7 +365,6 @@ public class Main {
                 System.out.println();
             }
         }
-        pressEnter();
     }
 
 } // end of Main class
