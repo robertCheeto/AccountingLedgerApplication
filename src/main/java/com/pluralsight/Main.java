@@ -21,7 +21,9 @@ public class Main {
          * /began working on displayMTDReport() / need to finish that method and make the other report methods
          * /those methods are the previous month, YtD, previous year, and search by vendor
          * /work on finishing the project by adding in "safety nets" and other QOL features
-         * /figure out how to download this updated version of the project to the YU laptop
+         *
+         * /fix bug in displayMTDReports() where other transactions that occur on
+         * the same date are not displayed for some reason
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
@@ -300,6 +302,7 @@ public class Main {
                 break;
             case (3):
                 System.out.println("Loading Year-To-Date Report...");
+                displayYTDReport(userAccount);
                 break;
             case (4):
                 System.out.println("Loading Previous Year Report...");
@@ -315,21 +318,6 @@ public class Main {
         }
     }
 
-    public static void displayYTDReport(HashMap<String, Account> userAccount) {
-        LocalDate currentDate = LocalDate.now();
-        String currentYear = String.valueOf(currentDate.getYear());
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
-
-        for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate().contains(currentYear)) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
-                System.out.println();
-            }
-        }
-        System.out.println("end of ledger. returning back to ledger menu");
-        // need to add a "press enter to return home" option
-    }
-
     public static void displayMTDReport(HashMap<String, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentMonth = String.valueOf(currentDate.getMonthValue());
@@ -338,8 +326,21 @@ public class Main {
 
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getDate().contains(currentYear + "-" + currentMonth)) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
-                System.out.println();
+                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+    }
+
+    public static void displayYTDReport(HashMap<String, Account> userAccount) {
+        LocalDate currentDate = LocalDate.now();
+        String currentYear = String.valueOf(currentDate.getYear());
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getDate().contains(currentYear)) {
+                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
         System.out.println("end of ledger. returning back to ledger menu");
