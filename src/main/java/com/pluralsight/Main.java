@@ -287,7 +287,6 @@ public class Main {
 
     }
 
-
     public static void reportMenu(HashMap<String, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         int userInput = keyboard.nextInt();
@@ -299,6 +298,7 @@ public class Main {
                 break;
             case (2):
                 System.out.println("Loading Previous Month Report...");
+                displayPreviousMonthReport(userAccount);
                 break;
             case (3):
                 System.out.println("Loading Year-To-Date Report...");
@@ -333,6 +333,23 @@ public class Main {
         // need to add a "press enter to return home" option
     }
 
+    // bug where it cannot retrieve the month of september because it is looking for
+    //"9" instead of "09" like in the date format. need to get a formatter involved
+    public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
+        LocalDate currentDate = LocalDate.now();
+        String currentMonth = String.valueOf(currentDate.getMonthValue() - 1);
+        String currentYear = String.valueOf(currentDate.getYear());
+        System.out.println("\n*****\ndate|time|description|vendor|amount");
+
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getDate().contains(currentYear + "-" + currentMonth)) {
+                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+            }
+        }
+        System.out.println("end of ledger. returning back to ledger menu");
+        // need to add a "press enter to return home" option
+    }
+
     public static void displayYTDReport(HashMap<String, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
@@ -346,6 +363,8 @@ public class Main {
         System.out.println("end of ledger. returning back to ledger menu");
         // need to add a "press enter to return home" option
     }
+
+
 
 
 } // end of Main class
