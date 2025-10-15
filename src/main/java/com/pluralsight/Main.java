@@ -265,7 +265,7 @@ public class Main {
         System.out.println("3) Year-To-Date");
         System.out.println("4) Previous Year");
         System.out.println("5) Search By Vendor");
-//        System.out.println("6) Custom Search");
+        System.out.println("6) Custom Search");
         System.out.println("0) Back");
         System.out.print("Enter your choice here: ");
         reportMenu(userAccount);
@@ -296,10 +296,10 @@ public class Main {
                 System.out.println("\nLoading \"Entries by Vendor\" Menu...");
                 searchByVendor(userAccount);
                 break;
-//            case ('6'):
-//                System.out.println("\nLoading Custom Search...\n");
-//                displayCustomSearchMenu(userAccount);
-//                break;
+            case (6):
+                System.out.println("\nLoading Custom Search...\n");
+                customSearch(userAccount);
+                break;
             case (0):
                 System.out.println("\nReturning Home...");
                 displayLedgerMenu(userAccount);
@@ -365,6 +365,35 @@ public class Main {
         Scanner keyboard = new Scanner(System.in);
         System.out.print("\nPlease enter a vendor you would like to search for: ");
         String userInput = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
+        for (Account ledgerInfo : userAccount.values()) {
+            if (ledgerInfo.getVendor().toLowerCase().trim().contains(userInput)) {
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
+                System.out.println();
+            }
+        }
+        System.out.print("*****\n");
+    }
+
+    public static void customSearch(HashMap<Integer, Account> userAccount) {
+        System.out.println("\n***** THIS METHOD IS STILL A WIP *****");
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("\nPlease enter a starting date for the transaction(s) you want to search for (YYYY-MM-DD): ");
+        String startDate = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.print("\nPlease enter an end date for the transaction(s) you want to search for (YYYY-MM-DD): ");
+        String endDate = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.print("\nPlease enter a description the transaction contains: ");
+        String description = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.print("\nPlease enter a vendor you would like to search for: ");
+        String vendor = keyboard.nextLine().toLowerCase().trim();
+
+        System.out.print("\nPlease enter an amount the transaction contains: $");
+        double amount = keyboard.nextDouble();
+
 
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
