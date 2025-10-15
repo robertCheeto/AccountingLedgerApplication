@@ -20,7 +20,7 @@ public class Main {
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
-        HashMap<String, Account> userAccount = loadTransactions();
+        HashMap<Integer, Account> userAccount = loadTransactions();
 
         while (true) {
             displayMenu();
@@ -59,14 +59,15 @@ public class Main {
         System.out.print("Enter your choice here: ");
     }
 
-    public static HashMap<String, Account> loadTransactions() {
-        HashMap<String, Account> userAccount = new HashMap<>();
+    public static HashMap<Integer, Account> loadTransactions() {
+        HashMap<Integer, Account> userAccount = new HashMap<>();
 
         try {
             BufferedReader bufReader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
             String input;
             bufReader.readLine();
 
+            int id = 0;
             while ((input = bufReader.readLine()) != null) {
                 String[] parsedList = input.split("\\|");
                 String date = parsedList[0];
@@ -74,8 +75,9 @@ public class Main {
                 String description = parsedList[2];
                 String vendor = parsedList[3];
                 double amount = Double.parseDouble(parsedList[4]);
+                id++;
 
-                userAccount.put(date, new Account(date, time, description, vendor, amount));
+                userAccount.put(id, new Account(date, time, description, vendor, amount, id));
             }
 
             bufReader.close();
@@ -126,7 +128,7 @@ public class Main {
         return localTime;
     }
 
-    public static void depositMenu(HashMap<String, Account> userAccount) {
+    public static void depositMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Enter in deposit information.");
@@ -141,10 +143,11 @@ public class Main {
         keyboard.nextLine();
 
         for (Account depositInfo : userAccount.values()) {
-            userAccount.put(localDate(), new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
+            int id = depositInfo.getTransactionID() + 1;
+            userAccount.put(id, new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount(), depositInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|%.2f\n", localDate(), localTime(), description, vendor, amount));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id));
                 bufWriter.close();
             }
             catch (IOException e) {
@@ -156,7 +159,7 @@ public class Main {
         System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n*****\n", description, vendor, amount);
     }
 
-    public static void paymentMenu(HashMap<String, Account> userAccount) {
+    public static void paymentMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Enter the information below:");
@@ -170,8 +173,9 @@ public class Main {
         double amount = keyboard.nextDouble();
         keyboard.nextLine();
 
-        for (Account depositInfo : userAccount.values()) {
-            userAccount.put(localDate(), new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount()));
+        for (Account paymentInfo : userAccount.values()) {
+            int id = paymentInfo.getTransactionID() + 1;
+            userAccount.put(id, new Account(localDate(), localTime(), paymentInfo.getDescription(), paymentInfo.getVendor(), paymentInfo.getAmount(), paymentInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
                 bufWriter.write(String.format("%s|%s|%s|%s|-%.2f\n", localDate(), localTime(), description, vendor, amount));
@@ -186,7 +190,7 @@ public class Main {
         System.out.printf("Payment Details: \"%s\" | Vendor: \"%s\" | Amount: $-%.2f\n", description, vendor, amount);
     }
 
-    public static void displayLedgerMenu(HashMap<String, Account> userAccount) {
+    public static void displayLedgerMenu(HashMap<Integer, Account> userAccount) {
         System.out.println("Please select a ledger option: ");
         System.out.println("A) Show All Entries");
         System.out.println("D) Show Deposits");
@@ -197,7 +201,7 @@ public class Main {
         ledgerMenu(userAccount);
     }
 
-    public static void ledgerMenu(HashMap<String, Account> userAccount) {
+    public static void ledgerMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
@@ -228,7 +232,7 @@ public class Main {
         }
     }
 
-    public static void displayAllEntries(HashMap<String, Account> userAccount) {
+    public static void displayAllEntries(HashMap<Integer, Account> userAccount) {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount");
         for (Account ledgerInfo : userAccount.values()) {
@@ -238,19 +242,19 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void displayAllDeposits(HashMap<String, Account> userAccount) {
+    public static void displayAllDeposits(HashMap<Integer, Account> userAccount) {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount");
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getAmount() >= 0.01) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
                 System.out.println();
             }
         }
         System.out.print("*****\n");
     }
 
-    public static void displayAllPayments(HashMap<String, Account> userAccount) {
+    public static void displayAllPayments(HashMap<Integer, Account> userAccount) {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount");
         for (Account ledgerInfo : userAccount.values()) {
@@ -262,7 +266,7 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void displayReportsMenu(HashMap<String, Account> userAccount) {
+    public static void displayReportsMenu(HashMap<Integer, Account> userAccount) {
         System.out.println("Please select a report option: ");
         System.out.println("1) Month-To-Date");
         System.out.println("2) Previous Month");
@@ -274,7 +278,7 @@ public class Main {
         reportMenu(userAccount);
     }
 
-    public static void reportMenu(HashMap<String, Account> userAccount) {
+    public static void reportMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         int userInput = keyboard.nextInt();
 
@@ -309,7 +313,7 @@ public class Main {
         }
     }
 
-    public static void displayMTDReport(HashMap<String, Account> userAccount) {
+    public static void displayMTDReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentMonth = String.valueOf(currentDate.getMonthValue());
         String currentYear = String.valueOf(currentDate.getYear());
@@ -323,7 +327,7 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
+    public static void displayPreviousMonthReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
@@ -336,7 +340,7 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void displayYTDReport(HashMap<String, Account> userAccount) {
+    public static void displayYTDReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
         System.out.println("\n*****\ndate|time|description|vendor|amount");
@@ -349,7 +353,7 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void displayPreviousYearReport(HashMap<String, Account> userAccount) {
+    public static void displayPreviousYearReport(HashMap<Integer, Account> userAccount) {
         System.out.println("\n*****\ndate|time|description|vendor|amount");
 
         for (Account ledgerInfo : userAccount.values()) {
@@ -360,7 +364,8 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    public static void searchByVendor(HashMap<String, Account> userAccount) {
+    // new bug where "Search by Vendor" will not load transactions made by similar name on same day
+    public static void searchByVendor(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         System.out.print("Please enter a vendor you would like to search for: ");
         String userInput = keyboard.nextLine().toLowerCase().trim();
