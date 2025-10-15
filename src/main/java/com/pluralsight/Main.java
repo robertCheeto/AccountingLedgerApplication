@@ -10,15 +10,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
-
-        /** TO-DO:
-         * /fix bug in displayMTDReports() where other transactions that occur on
-         * the same date are not displayed for some reason
-         * /fix bug where payments and deposits are out of reverse chronological order
-         * in which they happen
-         * /can schedule tutoring with Wally to get overview of code and assistance
-         */
-
         System.out.println("*****\tWelcome to Big Banks\t*****");
 
         while (true) {
@@ -175,11 +166,11 @@ public class Main {
         keyboard.nextLine();
 
         for (Account paymentInfo : userAccount.values()) {
-            int id = paymentInfo.getTransactionID() + 1;
+            int id = userAccount.size() + 1;
             userAccount.put(id, new Account(localDate(), localTime(), paymentInfo.getDescription(), paymentInfo.getVendor(), paymentInfo.getAmount(), paymentInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|-%.2f\n", localDate(), localTime(), description, vendor, amount));
+                bufWriter.write(String.format("%s|%s|%s|%s|-%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id));
                 bufWriter.close();
             }
             catch (IOException e) {
@@ -365,7 +356,6 @@ public class Main {
         System.out.print("*****\n");
     }
 
-    // new bug where "Search by Vendor" will not load transactions made by similar name on same day
     public static void searchByVendor(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
         System.out.print("\nPlease enter a vendor you would like to search for: ");
