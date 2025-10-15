@@ -379,31 +379,31 @@ public class Main {
 
     public static void customSearch(HashMap<Integer, Account> userAccount) {
         System.out.println("\n***** THIS METHOD IS STILL A WIP *****");
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("\nPlease enter a starting date for the transaction(s) you want to search for (YYYY-MM-DD): ");
-        String startDate = keyboard.nextLine().toLowerCase().trim();
-
-        System.out.print("\nPlease enter an end date for the transaction(s) you want to search for (YYYY-MM-DD): ");
-        String endDate = keyboard.nextLine().toLowerCase().trim();
-
-        System.out.print("\nPlease enter a description the transaction contains: ");
-        String description = keyboard.nextLine().toLowerCase().trim();
-
-        System.out.print("\nPlease enter a vendor you would like to search for: ");
-        String vendor = keyboard.nextLine().toLowerCase().trim();
-
-        System.out.print("\nPlease enter an amount the transaction contains: $");
-        double amount = keyboard.nextDouble();
-
-
-        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
-        for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getDate()) {
-                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
-                System.out.println();
-            }
-        }
-        System.out.print("*****\n");
+//        Scanner keyboard = new Scanner(System.in);
+//        System.out.print("\nPlease enter a starting date for the transaction(s) you want to search for (YYYY-MM-DD): ");
+//        String startDate = keyboard.nextLine().toLowerCase().trim();
+//
+//        System.out.print("\nPlease enter an end date for the transaction(s) you want to search for (YYYY-MM-DD): ");
+//        String endDate = keyboard.nextLine().toLowerCase().trim();
+//
+//        System.out.print("\nPlease enter a description the transaction contains: ");
+//        String description = keyboard.nextLine().toLowerCase().trim();
+//
+//        System.out.print("\nPlease enter a vendor you would like to search for: ");
+//        String vendor = keyboard.nextLine().toLowerCase().trim();
+//
+//        System.out.print("\nPlease enter an amount the transaction contains: $");
+//        double amount = keyboard.nextDouble();
+//
+//
+//        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
+//        for (Account ledgerInfo : userAccount.values()) {
+//            if (ledgerInfo.getDate()) {
+//                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
+//                System.out.println();
+//            }
+//        }
+//        System.out.print("*****\n");
     }
 
 }
