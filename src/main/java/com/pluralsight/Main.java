@@ -20,9 +20,9 @@ public class Main {
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
-        HashMap<Integer, Account> userAccount = loadTransactions();
 
         while (true) {
+            HashMap<Integer, Account> userAccount = loadTransactions();
             displayMenu();
             char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
@@ -144,11 +144,11 @@ public class Main {
 
 
         for (Account depositInfo : userAccount.values()) {
-            int id = depositInfo.getTransactionID();
+            int id = userAccount.size() + 1;
             userAccount.put(id, new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount(), depositInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id + 1));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id));
                 bufWriter.close();
             }
             catch (IOException e) {

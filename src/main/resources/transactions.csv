@@ -9,15 +9,13 @@ date|time|description|vendor|amount|id
 2025-10-14|09:28:05|wellness check|programmer|200.00
 2025-10-14|19:28:05|hard core code|programmer|-200.00
 2025-10-15|08:49:03|AMD ryzen processor|MicroCenter|-219.99
-2025-10-15|09:21:18|Test Deposit #1|Daniel|0.00
-2025-10-15|09:22:40|test deposit #2|daniel|100.00
-2025-10-15|09:23:48|test deposit 3|daniel|40.24
-2025-10-15|09:41:33|test depo #5|dan|3490.00
-2025-10-15|09:43:12|test depo 6|dan|290321.00
-2025-10-15|09:43:45|test payment 1|toby|-3420.00
-2025-10-15|10:41:49|test depo 1|dan|2031.23
 2025-10-15|10:49:49|test deposit 1 after code changes|daniel|200.00
 2025-10-15|10:54:20|test depo 3|dan|301.00|1
 2025-10-15|11:32:27|test deposit for ID num|tester|20.23|2
 2025-10-15|11:35:26|test depo for ID 2|yun|12.40|1
 2025-10-15|11:38:55|test depo #3|pup|31.20|2
+2025-10-15|11:43:17|test ID 4|me|23.00|1
+2025-10-15|11:47:44|test id 5|trippy|40.00|17
+2025-10-15|11:51:05|test depo 6|RATM|34.97|18
+2025-10-15|11:53:33|test depo 7|wendy|27.25|19
+2025-10-15|11:59:17|test id 8|top|123.00|20
