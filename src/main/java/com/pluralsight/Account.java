@@ -3,13 +3,15 @@ package com.pluralsight;
 public class Account {
     private String description, vendor, date, time;
     private double amount;
+    private int transactionID;
 
-    public Account(String date, String time, String description, String vendor, double amount) {
+    public Account(String date, String time, String description, String vendor, double amount, int transactionID) {
         this.date = date;
         this.time = time;
         this.description = description;
         this.vendor = vendor;
         this.amount = amount;
+        this.transactionID = transactionID;
     }
 
     public String getDescription() {
@@ -32,8 +34,8 @@ public class Account {
         return amount;
     }
 
-
-    // create getters for other reports in the ledger
-    // MtD, Previous 30 days, YtD, Previous Year
+    public int getTransactionID() {
+        return transactionID;
+    }
 
 }
