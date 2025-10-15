@@ -18,3 +18,6 @@ date|time|description|vendor|amount|id
 2025-10-15|10:41:49|test depo 1|dan|2031.23
 2025-10-15|10:49:49|test deposit 1 after code changes|daniel|200.00
 2025-10-15|10:54:20|test depo 3|dan|301.00|1
+2025-10-15|11:32:27|test deposit for ID num|tester|20.23|2
+2025-10-15|11:35:26|test depo for ID 2|yun|12.40|1
+2025-10-15|11:38:55|test depo #3|pup|31.20|2

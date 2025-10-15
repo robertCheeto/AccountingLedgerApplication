@@ -142,12 +142,13 @@ public class Main {
         double amount = keyboard.nextDouble();
         keyboard.nextLine();
 
+
         for (Account depositInfo : userAccount.values()) {
-            int id = depositInfo.getTransactionID() + 1;
+            int id = depositInfo.getTransactionID();
             userAccount.put(id, new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount(), depositInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id + 1));
                 bufWriter.close();
             }
             catch (IOException e) {
