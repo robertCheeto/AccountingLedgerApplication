@@ -20,10 +20,10 @@ public class Main {
          */
 
         System.out.println("*****\tWelcome to Big Banks\t*****");
-        displayMenu();
+        HashMap<String, Account> userAccount = loadTransactions();
 
         while (true) {
-            HashMap<String, Account> userAccount = loadTransactions();
+            displayMenu();
             char userInput = keyboard.nextLine().toLowerCase().trim().charAt(0);
 
             switch (userInput) {
@@ -45,7 +45,6 @@ public class Main {
                     System.exit(0);
                 default:
                     System.out.println("\n*****\nPlease enter a valid input.\n*****");
-                    displayMenu();
                     break;
             }
         }
@@ -96,7 +95,7 @@ public class Main {
         LocalDate currentDate = LocalDate.now();
         int currentNumMonth = currentDate.getMonthValue();
         currentNumMonth = currentNumMonth - 1;
-        String previousMonth = "";
+        String previousMonth;
 
         if (currentNumMonth < 10 && currentNumMonth > 0) {
             String tempMonth = String.valueOf(currentNumMonth);
@@ -204,27 +203,27 @@ public class Main {
 
         switch (userInput) {
             case ('a'):
-                System.out.println("Loading all entries...");
+                System.out.println("\nLoading all entries...");
                 displayAllEntries(userAccount);
                 break;
             case ('d'):
-                System.out.println("Loading deposits...");
+                System.out.println("\nLoading deposits...");
                 displayAllDeposits(userAccount);
                 break;
             case ('p'):
-                System.out.println("Loading payments...");
+                System.out.println("\nLoading payments...\n");
                 displayAllPayments(userAccount);
                 break;
             case ('r'):
-                System.out.println("Loading reports...");
+                System.out.println("\nLoading reports...\n");
                 displayReportsMenu(userAccount);
                 break;
             case ('h'):
-                System.out.println("Returning Home...");
+                System.out.println("\nReturning Home...");
                 displayMenu();
                 break;
             default:
-                System.out.println("Please enter a valid entry.");
+                System.out.println("\nPlease enter a valid entry.");
                 displayLedgerMenu(userAccount);
         }
     }
@@ -236,6 +235,7 @@ public class Main {
             System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             System.out.println();
         }
+        System.out.print("*****\n");
     }
 
     public static void displayAllDeposits(HashMap<String, Account> userAccount) {
@@ -247,6 +247,7 @@ public class Main {
                 System.out.println();
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void displayAllPayments(HashMap<String, Account> userAccount) {
@@ -258,6 +259,7 @@ public class Main {
                 System.out.println();
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void displayReportsMenu(HashMap<String, Account> userAccount) {
@@ -278,31 +280,31 @@ public class Main {
 
         switch (userInput) {
             case (1):
-                System.out.println("Loading Month-To-Date Report...");
+                System.out.println("\nLoading Month-To-Date Report...");
                 displayMTDReport(userAccount);
                 break;
             case (2):
-                System.out.println("Loading Previous Month Report...");
+                System.out.println("\nLoading Previous Month Report...");
                 displayPreviousMonthReport(userAccount);
                 break;
             case (3):
-                System.out.println("Loading Year-To-Date Report...");
+                System.out.println("\nLoading Year-To-Date Report...");
                 displayYTDReport(userAccount);
                 break;
             case (4):
-                System.out.println("Loading Previous Year Report...");
+                System.out.println("\nLoading Previous Year Report...");
                 displayPreviousYearReport(userAccount);
                 break;
             case (5):
-                System.out.println("Loading \"Entries by Vendor\" Menu...");
+                System.out.println("\nLoading \"Entries by Vendor\" Menu...");
                 searchByVendor(userAccount);
                 break;
             case (0):
-                System.out.println("Returning Home...");
+                System.out.println("\nReturning Home...");
                 displayLedgerMenu(userAccount);
                 break;
             default:
-                System.out.println("Please enter a valid number.");
+                System.out.println("\nPlease enter a valid number.");
                 displayReportsMenu(userAccount);
         }
     }
@@ -318,6 +320,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void displayPreviousMonthReport(HashMap<String, Account> userAccount) {
@@ -330,6 +333,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void displayYTDReport(HashMap<String, Account> userAccount) {
@@ -342,6 +346,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void displayPreviousYearReport(HashMap<String, Account> userAccount) {
@@ -352,6 +357,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
             }
         }
+        System.out.print("*****\n");
     }
 
     public static void searchByVendor(HashMap<String, Account> userAccount) {
@@ -366,6 +372,7 @@ public class Main {
                 System.out.println();
             }
         }
+        System.out.print("*****\n");
     }
 
 } // end of Main class
