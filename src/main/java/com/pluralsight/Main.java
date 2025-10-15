@@ -234,9 +234,9 @@ public class Main {
 
     public static void displayAllEntries(HashMap<Integer, Account> userAccount) {
 
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
-            System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+            System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             System.out.println();
         }
         System.out.print("*****\n");
@@ -244,7 +244,7 @@ public class Main {
 
     public static void displayAllDeposits(HashMap<Integer, Account> userAccount) {
 
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getAmount() >= 0.01) {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
@@ -256,10 +256,10 @@ public class Main {
 
     public static void displayAllPayments(HashMap<Integer, Account> userAccount) {
 
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getAmount() <= -0.01) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
                 System.out.println();
             }
         }
@@ -317,11 +317,11 @@ public class Main {
         LocalDate currentDate = LocalDate.now();
         String currentMonth = String.valueOf(currentDate.getMonthValue());
         String currentYear = String.valueOf(currentDate.getYear());
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getDate().contains(currentYear + "-" + currentMonth)) {
-                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
         System.out.print("*****\n");
@@ -330,11 +330,11 @@ public class Main {
     public static void displayPreviousMonthReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getDate().contains(currentYear + "-" + getPreviousMonth())) {
-                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
         System.out.print("*****\n");
@@ -343,22 +343,22 @@ public class Main {
     public static void displayYTDReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getDate().contains(currentYear)) {
-                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
         System.out.print("*****\n");
     }
 
     public static void displayPreviousYearReport(HashMap<Integer, Account> userAccount) {
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getDate().contains(getPreviousYear())) {
-                System.out.printf("%s|%s|%s|%s|$%.2f\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
         System.out.print("*****\n");
@@ -367,13 +367,13 @@ public class Main {
     // new bug where "Search by Vendor" will not load transactions made by similar name on same day
     public static void searchByVendor(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.print("Please enter a vendor you would like to search for: ");
+        System.out.print("\nPlease enter a vendor you would like to search for: ");
         String userInput = keyboard.nextLine().toLowerCase().trim();
 
-        System.out.println("\n*****\ndate|time|description|vendor|amount");
+        System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
             if (ledgerInfo.getVendor().toLowerCase().trim().contains(userInput)) {
-                System.out.printf("%s|%s|%s|%s|$%.2f", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount());
+                System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
                 System.out.println();
             }
         }
