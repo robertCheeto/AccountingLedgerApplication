@@ -96,6 +96,7 @@ public class Main {
             sb.insert(0, "0");
             previousMonth = sb.toString();
         }
+        // add condition for when january is the previous month, roll back to february
         else {
             previousMonth = Integer.toString(currentNumMonth);
         }
@@ -397,7 +398,7 @@ public class Main {
 
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
-            if (ledgerInfo.getVendor().toLowerCase().trim().contains(userInput)) {
+            if (ledgerInfo.getDate()) {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
                 System.out.println();
             }
