@@ -31,7 +31,7 @@ public class Main {
                     displayLedgerMenu(userAccount);
                     break;
                 case ('x'):
-                    System.out.println("\nClosing program...\n");
+                    System.out.println("\nClosing program...");
                     keyboard.close();
                     System.exit(0);
                 default:
@@ -207,7 +207,7 @@ public class Main {
                 displayAllDeposits(userAccount);
                 break;
             case ('p'):
-                System.out.println("\nLoading payments...\n");
+                System.out.println("\nLoading payments...");
                 displayAllPayments(userAccount);
                 break;
             case ('r'):
@@ -219,7 +219,7 @@ public class Main {
                 displayMenu();
                 break;
             default:
-                System.out.println("\nPlease enter a valid entry.");
+                System.out.println("\nPlease enter a valid entry.\n");
                 displayLedgerMenu(userAccount);
         }
     }
