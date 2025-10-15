@@ -188,6 +188,7 @@ public class Main {
         System.out.println("D) Show Deposits");
         System.out.println("P) Show Payments");
         System.out.println("R) Reports");
+        System.out.println("S) Custom Search");
         System.out.println("H) Home");
         System.out.print("Enter your choice here: ");
         ledgerMenu(userAccount);
@@ -213,6 +214,10 @@ public class Main {
             case ('r'):
                 System.out.println("\nLoading reports...\n");
                 displayReportsMenu(userAccount);
+                break;
+            case ('s'):
+                System.out.println("\nLoading Custom Search...\n");
+                displayCustomSearchMenu(userAccount);
                 break;
             case ('h'):
                 System.out.println("\nReturning Home...");
@@ -369,6 +374,53 @@ public class Main {
             }
         }
         System.out.print("*****\n");
+    }
+
+    public static void displayCustomSearchMenu(HashMap<Integer, Account> userAccount) {
+        System.out.println("Please select a search option: ");
+        System.out.println("1) Search by Date");
+        System.out.println("2) Search by Description");
+        System.out.println("3) Search by Vendor");
+        System.out.println("4) Search by Amount");
+        System.out.println("5) Searchy by Transaction ID");
+        System.out.println("0) Back");
+        System.out.print("Enter your choice here: ");
+        customSearchMenu(userAccount);
+    }
+
+    public static void customSearchMenu(HashMap<Integer, Account> userAccount) {
+        Scanner keyboard = new Scanner(System.in);
+        int userInput = keyboard.nextInt();
+
+        switch (userInput) {
+            case (1):
+                System.out.println("\nLoading \"Search by Date\"...");
+                displayMTDReport(userAccount);
+                break;
+            case (2):
+                System.out.println("\nLoading \"Search by Description\"...");
+                displayPreviousMonthReport(userAccount);
+                break;
+            case (3):
+                System.out.println("\nLoading \"Search by Vendor\"...");
+                displayYTDReport(userAccount);
+                break;
+            case (4):
+                System.out.println("\nLoading \"Search by Amount\"...");
+                displayPreviousYearReport(userAccount);
+                break;
+            case (5):
+                System.out.println("\nLoading \"Searchy by Transaction ID\" Menu...");
+                searchByVendor(userAccount);
+                break;
+            case (0):
+                System.out.println("\nReturning Home...");
+                displayLedgerMenu(userAccount);
+                break;
+            default:
+                System.out.println("\nPlease enter a valid number.");
+                displayReportsMenu(userAccount);
+        }
     }
 
 } // end of Main class
