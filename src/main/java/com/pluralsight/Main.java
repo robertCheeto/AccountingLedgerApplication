@@ -143,7 +143,8 @@ public class Main {
             userAccount.put(id, new Account(localDate(), localTime(), depositInfo.getDescription(), depositInfo.getVendor(), depositInfo.getAmount(), depositInfo.getTransactionID()));
             try {
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d\n", localDate(), localTime(), description, vendor, amount, id));
+                bufWriter.write(String.format("%s|%s|%s|%s|%.2f|%d", localDate(), localTime(), description, vendor, amount, id));
+                bufWriter.newLine();
                 bufWriter.close();
             }
             catch (IOException e) {
@@ -219,8 +220,7 @@ public class Main {
                 displayReportsMenu(userAccount);
                 break;
             case ('h'):
-                System.out.println("\nReturning Home...");
-                displayMenu();
+                System.out.println("\nReturning to Main Menu...");
                 break;
             default:
                 System.out.println("\nPlease enter a valid entry.\n");
@@ -311,6 +311,10 @@ public class Main {
             default:
                 System.out.println("\nPlease enter a valid number.");
                 displayReportsMenu(userAccount);
+        }
+
+        if (userInput > 0) {
+            displayReportsMenu(userAccount);
         }
     }
 
