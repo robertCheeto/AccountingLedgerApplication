@@ -269,7 +269,7 @@ public class Main {
         System.out.println("3) Year-To-Date");
         System.out.println("4) Previous Year");
         System.out.println("5) Search By Vendor");
-        System.out.println("6) Custom Search");
+        System.out.println("6) Custom Search \t*EXPERIMENTAL - NOT FINAL*");
         System.out.println("0) Back");
         System.out.print("Enter your choice here: ");
         reportMenu(userAccount);
@@ -301,7 +301,7 @@ public class Main {
                 searchByVendor(userAccount);
                 break;
             case (6):
-                System.out.println("\nLoading Custom Search...\n");
+                System.out.println("\nLoading Custom Search...");
                 customSearch(userAccount);
                 break;
             case (0):
@@ -389,7 +389,15 @@ public class Main {
     }
 
     public static void customSearch(HashMap<Integer, Account> userAccount) {
-        System.out.println("\n***** THIS METHOD IS STILL A WIP *****");
+        System.out.println("\n***** THIS METHOD IS STILL A WIP *****\nRESULTS GIVEN WILL NOT BE ACCURATE WHEN USED");
+
+        /*
+        The code below was intended to allow the user to enter in multiple inputs and search
+        the transactions.csv based on the data the user entered. If the user left an input (ex: amount)
+        empty, the program would not have used that data to search for transactions.
+        The code is running
+         */
+
         Scanner keyboard = new Scanner(System.in);
 
         System.out.print("\nPlease enter a starting date for the transaction(s) you want to search for (YYYY-MM-DD): ");
@@ -410,9 +418,6 @@ public class Main {
         keyboard.nextLine();
 
         System.out.println("Searching for transactions that match criteria...");
-
-        // when "nothing" is entered for description or vendor, the program does not know how to account for that
-        // program will also not take in the user pressing "enter" in for the amount
 
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
