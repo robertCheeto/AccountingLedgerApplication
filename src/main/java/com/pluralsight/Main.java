@@ -90,13 +90,16 @@ public class Main {
         currentNumMonth = currentNumMonth - 1;
         String previousMonth;
 
-        if (currentNumMonth < 10 && currentNumMonth > 0) {
+        if (currentNumMonth < 10 && currentNumMonth > 1) {
             String tempMonth = String.valueOf(currentNumMonth);
             StringBuilder sb = new StringBuilder(tempMonth);
             sb.insert(0, "0");
             previousMonth = sb.toString();
         }
-        // add condition for when january is the previous month, roll back to february
+        else if (currentNumMonth == 1) {
+            currentNumMonth = 12;
+            previousMonth = Integer.toString(currentNumMonth);
+        }
         else {
             previousMonth = Integer.toString(currentNumMonth);
         }
