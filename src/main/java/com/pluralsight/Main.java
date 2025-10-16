@@ -31,7 +31,7 @@ public class Main {
                     displayLedgerMenu(userAccount);
                     break;
                 case ('x'):
-                    System.out.println("\nClosing program...");
+                    System.out.println("\nClosing Big Banks App...");
                     keyboard.close();
                     System.exit(0);
                 default:
@@ -42,7 +42,7 @@ public class Main {
     }
 
     public static void displayMenu() {
-        System.out.println("\nSelect a Menu based on the Letter\n");
+        System.out.println("\nEnter a Menu Option...\n");
         System.out.println("D) Add Deposit");
         System.out.println("P) Make Payment");
         System.out.println("L) Display Ledger");
@@ -126,14 +126,14 @@ public class Main {
     public static void depositMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
-        System.out.println("Enter in deposit information.");
-        System.out.print("Enter deposit description: ");
+        System.out.println("Enter deposit information below.\n");
+        System.out.print("Deposit description: ");
         String description = keyboard.nextLine().trim();
 
-        System.out.print("Enter vendor: ");
+        System.out.print("Vendor Name: ");
         String vendor = keyboard.nextLine().trim();
 
-        System.out.print("Enter in amount: ");
+        System.out.print("Deposit Amount: $");
         double amount = keyboard.nextDouble();
         keyboard.nextLine();
 
@@ -152,21 +152,21 @@ public class Main {
             }
             break;
         }
-        System.out.println("\n*****\nYou have made a deposit with the following details to your account:");
+        System.out.println("\n*****\nA Deposit has been credited to your account:");
         System.out.printf("Deposit Description: \"%s\" | Vendor: \"%s\" | Amount: $%.2f\n*****\n", description, vendor, amount);
     }
 
     public static void paymentMenu(HashMap<Integer, Account> userAccount) {
         Scanner keyboard = new Scanner(System.in);
 
-        System.out.println("Enter the information below:");
-        System.out.print("Enter payment information: ");
+        System.out.println("Enter payment information below:");
+        System.out.print("Payment description: ");
         String description = keyboard.nextLine().trim();
 
-        System.out.print("Enter who the payment is for: ");
+        System.out.print("Payment Recipient: ");
         String vendor = keyboard.nextLine().trim();
 
-        System.out.print("Enter in amount: ");
+        System.out.print("Payment Amount: $");
         double amount = keyboard.nextDouble();
         keyboard.nextLine();
 
@@ -183,12 +183,12 @@ public class Main {
             }
             break;
         }
-        System.out.println("\n*****\nYou have made a payment with the following details to your account:");
+        System.out.println("\n*****\nA Payment is being sent from your account:");
         System.out.printf("Payment Details: \"%s\" | Vendor: \"%s\" | Amount: $-%.2f\n", description, vendor, amount);
     }
 
     public static void displayLedgerMenu(HashMap<Integer, Account> userAccount) {
-        System.out.println("Please select a ledger option: ");
+        System.out.println("Enter a Ledger Menu Option...: ");
         System.out.println("A) Show All Entries");
         System.out.println("D) Show Deposits");
         System.out.println("P) Show Payments");
@@ -204,19 +204,19 @@ public class Main {
 
         switch (userInput) {
             case ('a'):
-                System.out.println("\nLoading all entries...");
+                System.out.println("\nLoading All Transactions...");
                 displayAllEntries(userAccount);
                 break;
             case ('d'):
-                System.out.println("\nLoading deposits...");
+                System.out.println("\nLoading Deposits...");
                 displayAllDeposits(userAccount);
                 break;
             case ('p'):
-                System.out.println("\nLoading payments...");
+                System.out.println("\nLoading Payments...");
                 displayAllPayments(userAccount);
                 break;
             case ('r'):
-                System.out.println("\nLoading reports...\n");
+                System.out.println("\nLoading Reports Menu...\n");
                 displayReportsMenu(userAccount);
                 break;
             case ('h'):
@@ -263,7 +263,7 @@ public class Main {
     }
 
     public static void displayReportsMenu(HashMap<Integer, Account> userAccount) {
-        System.out.println("Please select a report option: ");
+        System.out.println("Select a Report to View: ");
         System.out.println("1) Month-To-Date");
         System.out.println("2) Previous Month");
         System.out.println("3) Year-To-Date");
@@ -305,11 +305,11 @@ public class Main {
                 customSearch(userAccount);
                 break;
             case (0):
-                System.out.println("\nReturning Home...");
+                System.out.println("\nReturning to Ledger Menu...\n");
                 displayLedgerMenu(userAccount);
                 break;
             default:
-                System.out.println("\nPlease enter a valid number.");
+                System.out.println("\nPlease enter a valid number.\n");
                 displayReportsMenu(userAccount);
         }
 
@@ -322,6 +322,7 @@ public class Main {
         LocalDate currentDate = LocalDate.now();
         String currentMonth = String.valueOf(currentDate.getMonthValue());
         String currentYear = String.valueOf(currentDate.getYear());
+        System.out.print("\nCurrent Month-to-Date Report:");
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
@@ -329,12 +330,13 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
-        System.out.print("*****\n");
+        System.out.println("*****\n");
     }
 
     public static void displayPreviousMonthReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
+        System.out.print("\nPrevious Month Report:");
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
@@ -342,12 +344,13 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
-        System.out.print("*****\n");
+        System.out.println("*****\n");
     }
 
     public static void displayYTDReport(HashMap<Integer, Account> userAccount) {
         LocalDate currentDate = LocalDate.now();
         String currentYear = String.valueOf(currentDate.getYear());
+        System.out.print("\nCurrent Year-to-Date Report:");
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
@@ -355,10 +358,11 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
-        System.out.print("*****\n");
+        System.out.println("*****\n");
     }
 
     public static void displayPreviousYearReport(HashMap<Integer, Account> userAccount) {
+        System.out.print("\nPrevious Year Report:");
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
 
         for (Account ledgerInfo : userAccount.values()) {
@@ -366,7 +370,7 @@ public class Main {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d\n", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
             }
         }
-        System.out.print("*****\n");
+        System.out.println("*****\n");
     }
 
     public static void searchByVendor(HashMap<Integer, Account> userAccount) {
@@ -381,7 +385,7 @@ public class Main {
                 System.out.println();
             }
         }
-        System.out.print("*****\n");
+        System.out.println("*****\n");
     }
 
     public static void customSearch(HashMap<Integer, Account> userAccount) {
