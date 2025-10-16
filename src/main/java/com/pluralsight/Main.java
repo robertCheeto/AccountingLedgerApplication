@@ -397,15 +397,18 @@ public class Main {
         String vendor = keyboard.nextLine().toLowerCase().trim();
 
         System.out.print("\nPlease enter an amount the transaction contains: $");
-        double amount = keyboard.nextDouble();
+        double amount;
+        amount = keyboard.nextDouble();
         keyboard.nextLine();
 
         System.out.println("Searching for transactions that match criteria...");
 
+        // when "nothing" is entered for description or vendor, the program does not know how to account for that
+        // program will also not take in the user pressing "enter" in for the amount
+
         System.out.println("\n*****\ndate|time|description|vendor|amount|id");
         for (Account ledgerInfo : userAccount.values()) {
-            System.out.println("beep");
-            if (ledgerInfo.getVendor() ledgerInfo.getDescription().toLowerCase().trim().contains(description)) {
+            if (ledgerInfo.getAmount() == amount || ledgerInfo.getVendor().toLowerCase().trim().contains(vendor) || ledgerInfo.getDescription().toLowerCase().trim().contains(description)) {
                 System.out.printf("%s|%s|%s|%s|$%.2f|%d", ledgerInfo.getDate(), ledgerInfo.getTime(), ledgerInfo.getDescription(), ledgerInfo.getVendor(), ledgerInfo.getAmount(), ledgerInfo.getTransactionID());
                 System.out.println();
             }
